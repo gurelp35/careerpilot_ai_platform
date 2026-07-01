@@ -1,36 +1,122 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CareerPilot AI
 
-## Getting Started
+CareerPilot AI is a student-focused internship and graduate readiness platform built with **Next.js**, **TypeScript** and **Tailwind CSS**.
 
-First, run the development server:
+The project helps students organise applications, analyse job descriptions, identify skill gaps, prepare STAR interview answers and explore digital career pathways.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Project Overview
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+CareerPilot AI was created as a portfolio project to demonstrate frontend development, TypeScript, reusable components, data-driven UI design and user-focused problem solving.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The platform includes five main areas:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Home page with readiness overview
+- Application tracking dashboard
+- Job description analyser
+- STAR interview preparation tool
+- Sector insights and career pathway explorer
 
-## Learn More
+## Features
 
-To learn more about Next.js, take a look at the following resources:
+### Application Tracker
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Users can track internship and graduate applications, including:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Role title
+- Sector
+- Application status
+- Priority
+- Deadline
+- Next step
+- Notes
+- Progress score
+- Deadline status
 
-## Deploy on Vercel
+Application data is saved locally using `localStorage`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Job Description Analyser
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Users can paste a job description and the platform will:
+
+- Detect relevant technical and professional skills
+- Compare detected skills with the user's current skill profile
+- Calculate a role readiness score
+- Highlight matching skills
+- Highlight skills to improve
+- Generate a focused preparation action plan
+
+This analyser uses keyword-based skill detection.
+
+### Interview Preparation
+
+The interview preparation tool helps users build structured STAR answers:
+
+- Situation
+- Task
+- Action
+- Result
+
+Users can:
+
+- Load an example answer
+- Generate a structured STAR response
+- View an answer quality score
+- Copy the generated answer
+- Save answers locally
+- Load or delete saved answers
+
+### Sector Insights
+
+The Sector Insights page helps users explore digital career pathways across technology sectors.
+
+Users can:
+
+- Search sectors
+- Filter by category
+- Save favourite pathways
+- View key skills
+- Review interview focus areas
+- Understand how their project can be used as an interview example
+
+## Tech Stack
+
+- Next.js
+- TypeScript
+- React
+- Tailwind CSS
+- localStorage
+- Git and GitHub
+
+## Project Structure
+
+```text
+src
+├── app
+│   ├── page.tsx
+│   ├── dashboard
+│   │   └── page.tsx
+│   ├── analyser
+│   │   └── page.tsx
+│   ├── interview
+│   │   └── page.tsx
+│   └── sectors
+│       └── page.tsx
+│
+├── components
+│   ├── Navbar.tsx
+│   ├── StatCard.tsx
+│   ├── ProgressBar.tsx
+│   ├── SkillTag.tsx
+│   └── EmptyState.tsx
+│
+├── data
+│   ├── applications.ts
+│   ├── sectors.ts
+│   ├── skills.ts
+│   └── questions.ts
+│
+├── hooks
+│   └── useLocalStorage.ts
+│
+└── types
+    └── application.ts
