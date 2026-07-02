@@ -1,5 +1,11 @@
 # CareerPilot AI
 
+## Live Demo
+
+View the deployed project here:
+
+https://careerpilot-ai-platform-six.vercel.app/
+
 CareerPilot AI is a student-focused internship and graduate readiness platform built with **Next.js**, **TypeScript** and **Tailwind CSS**.
 
 The project helps students organise applications, analyse job descriptions, identify skill gaps, prepare STAR interview answers and explore digital career pathways.
