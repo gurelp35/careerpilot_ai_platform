@@ -2,18 +2,9 @@
 
 import Navbar from "@/components/Navbar";
 import { skillDefinitions, userSkills } from "@/data/skills";
+import { detectSkills } from "@/lib/skillDetection";
 import { useMemo, useState } from "react";
 
-
-function detectSkills(description: string) {
-    const lowerDescription = description.toLowerCase();
-
-    return skillDefinitions
-        .filter((skill) =>
-            skill.keywords.some((keyword) => lowerDescription.includes(keyword))
-        )
-        .map((skill) => skill.name);
-}
 
 function getSkillAdvice(skill: string) {
     const advice: Record<string, string> = {
@@ -83,7 +74,7 @@ export default function AnalyserPage() {
                 : "Needs Preparation";
 
     function handleAnalyse() {
-        const skills = detectSkills(jobDescription);
+        const skills = detectSkills(jobDescription, skillDefinitions);
         setDetectedSkills(skills);
         setHasAnalysed(true);
     }
