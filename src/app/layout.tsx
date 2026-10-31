@@ -24,9 +24,6 @@ export const metadata: Metadata = {
   },
   description: siteDescription,
   applicationName: "CareerPilot AI",
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     title: "CareerPilot AI | Graduate Career Readiness",
     description: siteDescription,
