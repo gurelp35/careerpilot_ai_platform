@@ -4,6 +4,11 @@ import Navbar from "@/components/Navbar";
 import StatCard from "@/components/StatCard";
 import ProgressBar from "@/components/ProgressBar";
 import { defaultApplications } from "@/data/applications";
+import {
+    APPLICATIONS_STORAGE_KEY,
+    persistApplications,
+    readStoredApplications,
+} from "@/lib/applicationStorage";
 import type {
     Application,
     ApplicationStatus,
@@ -75,6 +80,7 @@ function formatDate(date: string) {
 
 export default function DashboardPage() {
     const [applications, setApplications] = useState<Application[]>([]);
+    const [hasLoadedApplications, setHasLoadedApplications] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
 
     const [formData, setFormData] = useState<Omit<Application, "id">>({
@@ -88,25 +94,17 @@ export default function DashboardPage() {
     });
 
     useEffect(() => {
-        const savedApplications = localStorage.getItem(
-            "careerPilotNextApplications"
-        );
-
-        if (savedApplications) {
-            setApplications(JSON.parse(savedApplications));
-        } else {
-            setApplications(defaultApplications);
-        }
+        const savedApplications = localStorage.getItem(APPLICATIONS_STORAGE_KEY);
+        setApplications(readStoredApplications(savedApplications, defaultApplications));
+        setHasLoadedApplications(true);
     }, []);
 
     useEffect(() => {
-        if (applications.length > 0) {
-            localStorage.setItem(
-                "careerPilotNextApplications",
-                JSON.stringify(applications)
-            );
+        // Do not overwrite saved data with the initial empty state before hydration.
+        if (hasLoadedApplications) {
+            persistApplications(localStorage, applications);
         }
-    }, [applications]);
+    }, [applications, hasLoadedApplications]);
 
     const filteredApplications = useMemo(() => {
         return applications.filter((application) => {
@@ -168,7 +166,7 @@ export default function DashboardPage() {
     }
 
     function resetDemoData() {
-        localStorage.removeItem("careerPilotNextApplications");
+        localStorage.removeItem(APPLICATIONS_STORAGE_KEY);
         setApplications(defaultApplications);
     }
 
