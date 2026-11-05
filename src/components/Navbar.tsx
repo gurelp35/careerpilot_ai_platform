@@ -15,12 +15,12 @@ export default function Navbar() {
     const pathname = usePathname();
 
     return (
-        <nav className="mb-12 flex items-center justify-between">
-            <Link href="/" className="text-2xl font-bold">
+        <nav aria-label="Main navigation" className="mb-12 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <Link href="/" className="text-2xl font-bold focus-visible:rounded focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-300">
                 CareerPilot AI
             </Link>
 
-            <div className="hidden gap-6 text-sm text-slate-300 md:flex">
+            <div className="flex flex-wrap gap-x-5 gap-y-3 text-sm text-slate-300 md:gap-6">
                 {navLinks.map((link) => {
                     const isActive = pathname === link.href;
 
@@ -28,7 +28,8 @@ export default function Navbar() {
                         <Link
                             key={link.href}
                             href={link.href}
-                            className={isActive ? "text-blue-300" : "hover:text-white"}
+                            aria-current={isActive ? "page" : undefined}
+                            className={`rounded-sm underline-offset-4 hover:text-white hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-300 ${isActive ? "font-semibold text-blue-300 underline" : ""}`}
                         >
                             {link.label}
                         </Link>
