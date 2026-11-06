@@ -78,6 +78,7 @@ export default function InterviewPage() {
     const [message, setMessage] = useState("");
 
     useEffect(() => {
+        let safeToPersist = true;
         try {
             const storedAnswers = localStorage.getItem("careerPilotInterviewAnswers");
             if (storedAnswers) {
@@ -85,13 +86,15 @@ export default function InterviewPage() {
                 if (Array.isArray(parsed)) {
                     setSavedAnswers(parsed as SavedAnswer[]);
                 } else {
+                    safeToPersist = false;
                     setMessage("Saved answers could not be loaded: invalid data format.");
                 }
             }
         } catch {
+            safeToPersist = false;
             setMessage("Saved answers could not be loaded. Your stored data was not changed.");
         } finally {
-            setAnswersLoaded(true);
+            setAnswersLoaded(safeToPersist);
         }
     }, []);
 
