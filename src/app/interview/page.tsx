@@ -74,22 +74,41 @@ export default function InterviewPage() {
     const [result, setResult] = useState("");
     const [generatedAnswer, setGeneratedAnswer] = useState("");
     const [savedAnswers, setSavedAnswers] = useState<SavedAnswer[]>([]);
+    const [answersLoaded, setAnswersLoaded] = useState(false);
     const [message, setMessage] = useState("");
 
     useEffect(() => {
-        const storedAnswers = localStorage.getItem("careerPilotInterviewAnswers");
-
-        if (storedAnswers) {
-            setSavedAnswers(JSON.parse(storedAnswers));
+        let safeToPersist = true;
+        try {
+            const storedAnswers = localStorage.getItem("careerPilotInterviewAnswers");
+            if (storedAnswers) {
+                const parsed: unknown = JSON.parse(storedAnswers);
+                if (Array.isArray(parsed)) {
+                    setSavedAnswers(parsed as SavedAnswer[]);
+                } else {
+                    safeToPersist = false;
+                    setMessage("Saved answers could not be loaded: invalid data format.");
+                }
+            }
+        } catch {
+            safeToPersist = false;
+            setMessage("Saved answers could not be loaded. Your stored data was not changed.");
+        } finally {
+            setAnswersLoaded(safeToPersist);
         }
     }, []);
 
     useEffect(() => {
-        localStorage.setItem(
-            "careerPilotInterviewAnswers",
-            JSON.stringify(savedAnswers)
-        );
-    }, [savedAnswers]);
+        if (!answersLoaded) return;
+        try {
+            localStorage.setItem(
+                "careerPilotInterviewAnswers",
+                JSON.stringify(savedAnswers)
+            );
+        } catch {
+            setMessage("Could not save answers in this browser.");
+        }
+    }, [savedAnswers, answersLoaded]);
 
     const answerScore = useMemo(
         () => calculateAnswerScore(situation, task, action, result),
