@@ -126,3 +126,37 @@ src
 │
 └── types
     └── application.ts
+
+```
+
+## Run locally
+
+Requirements: Node.js 22 and npm.
+
+```bash
+npm ci
+npm run dev
+```
+
+Open http://localhost:3000 in your browser.
+
+Before submitting a change, run:
+
+```bash
+npm run lint
+npx tsc --noEmit
+npm run build
+```
+
+**Dependency installation note:** If `npm ci` reports that `package.json` and `package-lock.json` are out of sync, the lockfile needs to be regenerated and committed. Do not bypass this check in CI. See the open quality-check pull request for the current status.
+
+## Data storage and limitations
+
+- The application tracker and saved interview answers use browser `localStorage`, not an account-backed database.
+- Data is specific to the browser and device. Clearing site data or using a different browser can remove access to saved entries; there is no cloud sync or guaranteed backup.
+- Avoid entering passwords, confidential employer information or sensitive personal details into demo applications.
+- The job-description analyser is **keyword-based**, not a validated AI hiring or recruitment decision system. Readiness scores are illustrative and should not be interpreted as hiring predictions.
+
+## Project status
+
+This is a portfolio/demo application under active development. Features, accessibility and production build checks should be verified before treating a change as release-ready.
