@@ -126,3 +126,29 @@ src
 │
 └── types
     └── application.ts
+```
+
+## Local development
+
+Use Node.js 22 LTS and npm. From the repository root:
+
+```bash
+npm ci
+npm run dev
+```
+
+Open http://localhost:3000 in your browser.
+
+## Quality checks
+
+```bash
+npm run lint
+npx tsc --noEmit
+npm run build
+```
+
+Run these checks before opening a pull request. To preview a successful production build locally, run `npm start`.
+
+## Scope and limitations
+
+The job description analyser uses keyword matching rather than a trained machine-learning model or external AI service. Application data is stored in the browser, not synced to a server; clearing site data can remove saved applications.
